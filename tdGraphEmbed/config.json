@@ -1,0 +1,9 @@
+{
+  "walk_length": 16,
+  "num_walks": 40,
+  "p": 1,
+  "q": 0.5,
+  "graph_vector_size": 128,
+  "window": 5,
+  "epochs": 1
+}
