@@ -12,3 +12,4 @@ if __name__ == "__main__":
     model = TdGraphEmbed(dataset_name = "facebook")
     documents = model.get_documents_from_graph(graphs)
     model.run_doc2vec(documents)
+    graph_vectors = model.get_embeddings()

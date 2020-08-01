@@ -1,7 +1,7 @@
 import scipy.stats as stats
 import numpy as np
 
-def precision_at_k(predicted, real,k):
+def precision_at_k(predicted, real, k):
     precision=[]
     for t,graph in predicted.iterrows():
         top_predicted = graph.sort_values().index[1:k+1]
@@ -9,7 +9,7 @@ def precision_at_k(predicted, real,k):
         precision.append(len(set(top_predicted).intersection(set(top_real)))/k)
     return np.mean(precision)
 
-def spearman_ranking(predicted,gt):
+def spearman_ranking(predicted, gt):
     taus = []
     for t, graph in predicted.iterrows():
         predicted_rank = np.argsort(graph.values)

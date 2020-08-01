@@ -5,5 +5,5 @@
   "q": 0.5,
   "graph_vector_size": 128,
   "window": 5,
-  "epochs": 1
+  "epochs": 50
 }

@@ -1,7 +1,7 @@
 import json
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from node2vec import Node2Vec
-
+import numpy as np
 
 class TdGraphEmbed():
     def __init__(self, dataset_name):
@@ -17,6 +17,11 @@ class TdGraphEmbed():
         self.dataset_name =dataset_name
 
     def get_documents_from_graph(self, graphs):
+        '''
+
+        :param graphs: dictionary of key- time, value- nx.Graph
+        :return: list of documents
+        '''
         documents = []
         for time in graphs.keys():
             node2vec = Node2Vec(graphs[time], walk_length = self.walk_length, num_walks= self.num_walks,
@@ -27,7 +32,8 @@ class TdGraphEmbed():
         documents = sum(documents, [])
         return documents
 
-    def run_doc2vec(self,documents):
+    def run_doc2vec(self, documents):
+
         alpha = 0.025
         model = Doc2Vec(vector_size = self.graph_vector_size, alpha = alpha, window = self.window, min_alpha = 0.025,
                         min_count = 1)
@@ -39,3 +45,15 @@ class TdGraphEmbed():
             model.min_alpha = model.alpha
         model.save(f"trained_models/{self.dataset_name}.model")
         print("Model Saved")
+
+    def get_embeddings(self):
+        '''
+
+        :return: temporal graph vectors for each time step.
+        numpy array of shape (number of time steps, graph vector dimension size)
+        '''
+        model_path = f"trained_models/{self.dataset_name}.model"
+        model = Doc2Vec.load(model_path)
+        graph_vecs = model.docvecs.doctag_syn0
+        graph_vecs = graph_vecs[np.argsort([model.docvecs.index_to_doctag(i) for i in range(0, graph_vecs.shape[0])])]
+        return graph_vecs

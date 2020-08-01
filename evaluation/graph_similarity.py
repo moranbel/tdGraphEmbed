@@ -25,7 +25,7 @@ def graph2graph_mcs(graphs: list):
     :param graphs: list of networkx graphs
     :return: graph2graph similarity matrix
     '''
-    # MCS (most common grapgh) measure implementation
+    # MCS (most common graph) measure implementation
     similarity_matrix = pd.DataFrame(columns = graphs.keys(), index = graphs.keys())
     for t1, g1 in graphs.items():
         for t2, g2 in graphs.items():
@@ -35,6 +35,12 @@ def graph2graph_mcs(graphs: list):
 
 
 def getMCS(graph1, graph2):
+    '''
+
+    :param graph1:
+    :param graph2:
+    :return: MCS (most common graph) measure
+    '''
     matching_graph = nx.Graph()
 
     for n1, n2, attr in graph2.edges(data = True):

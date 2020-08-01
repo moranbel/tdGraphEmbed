@@ -35,7 +35,7 @@ def draw_temporal_communities(dynamic_graph_series):
         draw_degree_dist(dynamic_graph_series[i][0])
     plt = plot_dynamic_embedding(nodes_pos_list, dynamic_graph_series)
     plt.show()
-    plt.savefig('visualization_generated.png')
+    plt.savefig('generated_data/communities_visualization.png')
 
 
 def plot_regular_graph_stat(dynamic_graph_series, anomaly_times):
@@ -58,7 +58,7 @@ def plot_regular_graph_stat(dynamic_graph_series, anomaly_times):
         curve2 = curve2 * scat_anoms
     curve = curve1 + curve2
     renderer = hv.renderer('bokeh')
-    renderer.save(curve, 'stats')
+    renderer.save(curve, 'generated_data/general_stats')
 
 
 def temporal_LFR_anomalies(n, tau1 , tau2, mu, timesteps, anomaly_times):
