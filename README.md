@@ -24,7 +24,7 @@ The data should include - source node, target node, time of interaction, weight(
 According to the method describing in our paper, each graph time step is converted to a list of sentences 
 of type `[TaggedDocument(doc, [time])]`. 
 
-![](https://i.ibb.co/ZfxYvtB/graph2doc.png =50x20)
+<img src="https://i.ibb.co/ZfxYvtB/graph2doc.png" style="max-width: 600px"/>
 
 You can control the graph to document building process by updating the parameters in the config file: 
 - `p` and `q` parameters affect the traverse method in the graph as explained in node2vec.
@@ -35,7 +35,8 @@ You can control the graph to document building process by updating the parameter
 ### Training the model ###
 
 We train our model described in the paper, using the following architecture:
-![alt text](https://i.ibb.co/Z8g3qt7/g2v.png)
+<img src="https://i.ibb.co/Z8g3qt7/g2v.png" style="max-width: 600px"/>
+
 We use doc2vec code in order to apply this architecture.
 You can control the doc2vec training parameters by updating the parameters in the config file.
 
@@ -58,7 +59,7 @@ The following figure presents a visualization of the graph during its first 20 t
 The color of each nodes indicates the node's community, where the position of each node is determined using 2-Laplacian Eigenmaps. 
 The nodes selected for a community shift appear in red. The anomaly we injected at t=13 is clearly visible in the graph.
 
-![alt text](https://i.ibb.co/7k3bhsr/communities.jpg)
+<img src="https://i.ibb.co/7k3bhsr/communities.jpg" style="max-width: 600px"/>
 
 
 ### Data ###
