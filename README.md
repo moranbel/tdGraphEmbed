@@ -22,7 +22,7 @@ This repository provides a reference implementation of *tdGraphEmbed* as describ
 
 #### Example
 To run *tdGraphEmbed* you can follow the main.py for full flow example.
-    
+```python
     df = pd.read_table(r"data/facebook/facebook-wall.txt", sep = '\t', header = None)
     df.columns = ['source', 'target', 'time']
     temporal_g = TemporalGraph(data = df, time_granularity = 'months')
@@ -31,6 +31,8 @@ To run *tdGraphEmbed* you can follow the main.py for full flow example.
     documents = model.get_documents_from_graph(graphs)
     model.run_doc2vec(documents)
     graph_vectors = model.get_embeddings()
+   
+```
 
 #### Input
 The data should include - source node, target node, time of interaction, weight(optional).
@@ -42,7 +44,7 @@ The data should include - source node, target node, time of interaction, weight(
 
 	shape = [num_of_time_steps, dim_of_representation]
 
-####TdGraphEmbed.get_documents_from_graph ####
+#### TdGraphEmbed.get_documents_from_graph
 
 According to the method describing in our paper, each graph time step is converted to a list of sentences 
 of type `[TaggedDocument(doc, [time])]`. 
@@ -69,9 +71,9 @@ To achieve structural changes in time to the graph, we generated data by changin
 We use the Lancichinetti-Fortunato-Radicchi (LFR) algorithm to generate the graph, and 
 injected anomalies in time by changing the amount of nodes changing their communities. 
 To use this data generator use:
-
+```python
     temporal_LFR_anomalies(n, tau1, tau2, mu, timesteps, anomaly_times)
-
+```
 
 ### Data ###
 All our data is accessible in the "data" folder. 
