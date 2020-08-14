@@ -35,7 +35,7 @@ You can control the graph to document building process by updating the parameter
 ### Training the model ###
 
 We train our model described in the paper, using the following architecture:
-<img src="https://i.ibb.co/Z8g3qt7/g2v.png" width="600"/>
+<img src="https://i.ibb.co/Z8g3qt7/g2v.png" width="400"/>
 
 We use doc2vec code in order to apply this architecture.
 You can control the doc2vec training parameters by updating the parameters in the config file.
@@ -59,7 +59,7 @@ The following figure presents a visualization of the graph during its first 20 t
 The color of each nodes indicates the node's community, where the position of each node is determined using 2-Laplacian Eigenmaps. 
 The nodes selected for a community shift appear in red. The anomaly we injected at t=13 is clearly visible in the graph.
 
-<img src="https://i.ibb.co/7k3bhsr/communities.jpg" width="600"/>
+<img src="https://i.ibb.co/7k3bhsr/communities.jpg" width="800"/>
 
 
 ### Data ###
