@@ -24,7 +24,7 @@ The data should include - source node, target node, time of interaction, weight(
 According to the method describing in our paper, each graph time step is converted to a list of sentences 
 of type `[TaggedDocument(doc, [time])]`. 
 
-![](https://i.ibb.co/ZfxYvtB/graph2doc.png=50x20)
+![](https://i.ibb.co/ZfxYvtB/graph2doc.png =50x20)
 
 You can control the graph to document building process by updating the parameters in the config file: 
 - `p` and `q` parameters affect the traverse method in the graph as explained in node2vec.
