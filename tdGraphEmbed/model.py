@@ -14,6 +14,7 @@ class TdGraphEmbed():
         self.graph_vector_size = config["graph_vector_size"]
         self.window = config["window"]
         self.epochs = config["epochs"]
+        self.alpha = config["alpha"]
         self.dataset_name =dataset_name
 
     def get_documents_from_graph(self, graphs):
@@ -34,9 +35,7 @@ class TdGraphEmbed():
 
     def run_doc2vec(self, documents):
 
-        alpha = 0.025
-        model = Doc2Vec(vector_size = self.graph_vector_size, alpha = alpha, window = self.window, min_alpha = 0.025,
-                        min_count = 1)
+        model = Doc2Vec(vector_size = self.graph_vector_size, alpha = self.alpha, window = self.window, min_alpha = self.alpha)
         model.build_vocab(documents)
         for epoch in range(self.epochs):
             print('iteration {0}'.format(epoch))
