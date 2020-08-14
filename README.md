@@ -24,11 +24,11 @@ The data should include - source node, target node, time of interaction, weight(
 According to the method describing in our paper, each graph time step is converted to a list of sentences 
 of type `[TaggedDocument(doc, [time])]`. 
 
-![alt text](https://i.ibb.co/ZfxYvtB/graph2doc.png)
+![](https://i.ibb.co/ZfxYvtB/graph2doc.png=50x20)
 
 You can control the graph to document building process by updating the parameters in the config file: 
 - `p` and `q` parameters affect the traverse method in the graph as explained in node2vec.
-- L - `walk_length`, each sentence in the document max length
+- `walk_length`(L), each sentence in the document max length
 - `num_walks` (gamma)- number of walks starting from each node,
  will affect the number of sentences in the document representing the graph. 
 
@@ -49,7 +49,7 @@ which generates benchmark networks, i.e., artificial networks that resemble real
 
 We initiate the graph with two communities and in each time step, 
 we randomly choose one of the two communities and sample m nodes (using normal distribution) 
-from this community. We then change the labels of these nodes and assign them to the other community (referred to as ``community shifting''). 
+from this community. We then change the labels of these nodes and assign them to the other community (referred to as "community shifting"). 
 We repeat this process for 100 iterations (i.e., time steps).
 
 We inject anomalies in time by changing the normal distribution parameters, 
