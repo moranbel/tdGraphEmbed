@@ -1,23 +1,48 @@
 # tdGraphEmbed
 
+This repository provides a reference implementation of *tdGraphEmbed* as described in the paper:<br>
+> tdGraphEmbed: Temporal Dynamic Graph-Level Embedding.<br>
+> Moran Beladev, Lior Rokach, Gilad Katz, Ido Guy, Kira Radinsky.<br>
+> CIKM’20 – October 2020, Galway, Ireland. <br>
+> [Link](http://www.kiraradinsky.com/files/Temporal_Dynamic_Graph_Embedding__CIKM.pdf?fbclid=IwAR30gmFRxA8jqjOppnL1kGhUpwXKMQ1aJ1hUBR4lGprSTeroEHl7eTtAT0w)
 
-[Link](http://www.kiraradinsky.com/files/Temporal_Dynamic_Graph_Embedding__CIKM.pdf?fbclid=IwAR30gmFRxA8jqjOppnL1kGhUpwXKMQ1aJ1hUBR4lGprSTeroEHl7eTtAT0w
-) to the paper describing our method (published in CIKM'20).
-Temporal dynamic graphs are graphs whose topology evolves over time, 
-which is important in numerous fields - the World Wide Web evolution, 
-social and communication networks, scientific citations, terrorist analysis, 
-biological graphs, etc.  We share an approach to represent such graphs for 
-anomaly detection, trends analysis, graph classification and more.
+### Requirements
+    python>=3.6
+    networkx
+    numpy
+    pandas
+    gensim
+    node2vec
+    matplotlib
+    holoviews
+    sklearn
+    scipy
 
+### Basic Usage
 
-### tdGraphEmbed- main ###
+#### Example
+To run *tdGraphEmbed* you can follow the main.py for full flow example.
+    
+    df = pd.read_table(r"data/facebook/facebook-wall.txt", sep = '\t', header = None)
+    df.columns = ['source', 'target', 'time']
+    temporal_g = TemporalGraph(data = df, time_granularity = 'months')
+    graphs = temporal_g.get_temporal_graphs(min_degree = 10)
+    model = TdGraphEmbed(dataset_name = "facebook")
+    documents = model.get_documents_from_graph(graphs)
+    model.run_doc2vec(documents)
+    graph_vectors = model.get_embeddings()
 
-Creating temporal embedding for each graph time step. 
-To run the embedding, use the main file and update the path file to your graph data. 
+#### Input
 The data should include - source node, target node, time of interaction, weight(optional).
+	
+	node1_id_int node2_id_int time_timestamp <weight_float, optional>
+
+#### output
 `model.get_embeddings()` - > numpy array of shape (number of time steps, graph vector dimension size)
 
-### TdGraphEmbed.get_documents_from_graph ###
+	shape = [num_of_time_steps, dim_of_representation]
+
+####TdGraphEmbed.get_documents_from_graph ####
 
 According to the method describing in our paper, each graph time step is converted to a list of sentences 
 of type `[TaggedDocument(doc, [time])]`. 
@@ -30,7 +55,7 @@ You can control the graph to document building process by updating the parameter
 - `num_walks` (gamma)- number of walks starting from each node,
  will affect the number of sentences in the document representing the graph. 
 
-### Training the model ###
+#### Training the model ####
 
 We train our model described in the paper, using the following architecture:
 <img src="https://i.ibb.co/Z8g3qt7/g2v.png" width="400"/>
@@ -39,25 +64,13 @@ We use doc2vec code in order to apply this architecture.
 You can control the doc2vec training parameters by updating the parameters in the config file.
 
 
-### Generated data ###
-To achieve structural changes in time to the graph, which can be caused by nodes’ changing of communities, we generated data for this use case.
-We created a synthetic dataset that illustrates the effectiveness of our proposed graph embedding approach for anomaly detection.
+#### Generated data ####
+To achieve structural changes in time to the graph, we generated data by changing the nodes’ communities in time.
+We use the Lancichinetti-Fortunato-Radicchi (LFR) algorithm to generate the graph, and 
+injected anomalies in time by changing the amount of nodes changing their communities. 
+To use this data generator use:
 
-The first graph in the sequence of times is generated using the Lancichinetti-Fortunato-Radicchi (LFR) algorithm,
-which generates benchmark networks, i.e., artificial networks that resemble real-world networks.
-
-We initiate the graph with two communities and in each time step, 
-we randomly choose one of the two communities and sample m nodes (using normal distribution) 
-from this community. We then change the labels of these nodes and assign them to the other community (referred to as "community shifting"). 
-We repeat this process for 100 iterations (i.e., time steps).
-
-We inject anomalies in time by changing the normal distribution parameters, 
-such that in abnormal time steps more nodes are likely to change labels. 
-The following figure presents a visualization of the graph during its first 20 time steps. 
-The color of each nodes indicates the node's community, where the position of each node is determined using 2-Laplacian Eigenmaps. 
-The nodes selected for a community shift appear in red. The anomaly we injected at t=13 is clearly visible in the graph.
-
-<img src="https://i.ibb.co/7k3bhsr/communities.jpg" width="800"/>
+    temporal_LFR_anomalies(n, tau1, tau2, mu, timesteps, anomaly_times)
 
 
 ### Data ###

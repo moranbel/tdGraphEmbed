@@ -6,21 +6,21 @@ import pandas as pd
 
 
 class TemporalGraph():
-    def __init__(self, df, time_granularity):
+    def __init__(self, data, time_granularity):
         '''
 
-        :param df: df- source, target, time, weight columns
+        :param data: DataFrame- source, target, time, weight columns
         :param time_granularity: 'day', 'week', 'month', 'year' or 'hour'
         '''
-        df['day'] = df['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).day)
-        df['week'] = df['time'].apply(
+        data['day'] = data['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).day)
+        data['week'] = data['time'].apply(
             lambda timestamp: (datetime.utcfromtimestamp(timestamp)).isocalendar()[1])
-        df['month'] = df['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).month)
-        df['year'] = df['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).year)
-        df['hour'] = df['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).hour)
-        if 'weight' not in df.columns:
-            df['weight'] = 1
-        self.data = df
+        data['month'] = data['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).month)
+        data['year'] = data['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).year)
+        data['hour'] = data['time'].apply(lambda timestamp: (datetime.utcfromtimestamp(timestamp)).hour)
+        if 'weight' not in data.columns:
+            data['weight'] = 1
+        self.data = data
         self.time_granularity = time_granularity
         self.time_columns, self.step = self._get_time_columns(time_granularity)
         self.static_graph = self.get_static_graph()
@@ -97,6 +97,6 @@ if __name__ == "__main__":
     path = r"data/enron/out.enron"
     df = pd.read_table(path, sep = ' ', header = None)
     df.columns = ['source', 'target', 'weight', 'time']
-    temporal_graphs = TemporalGraph(df, 'weeks')
+    temporal_graphs = TemporalGraph(data = df, time_granularity = 'weeks')
     graphs = temporal_graphs.get_temporal_graphs(min_degree = 10)
     print(graphs)

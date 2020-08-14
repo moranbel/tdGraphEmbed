@@ -62,6 +62,19 @@ def plot_regular_graph_stat(dynamic_graph_series, anomaly_times):
 
 
 def temporal_LFR_anomalies(n, tau1 , tau2, mu, timesteps, anomaly_times):
+    '''
+
+    :param n: int, number of nodes
+    :param tau1:  float. Power law exponent for the degree distribution of the created
+        graph. This value must be strictly greater than one.
+    :param tau2: float. Power law exponent for the community size distribution in the
+        created graph. This value must be strictly greater than one.
+    :param mu: float. Fraction of intra-community edges incident to each node. This
+        value must be in the interval [0, 1].
+    :param timesteps: int,  number od time steps
+    :param anomaly_times: list. list of anomaly times indices
+    :return:
+    '''
     G, communities = LFR_benchmark_graph(n, tau1, tau2, mu, average_degree = 30,
                                         min_community = 450, seed = 10)
     graphs = [G.copy()]
