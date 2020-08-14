@@ -1,7 +1,5 @@
 # tdGraphEmbed
-=======
 
-=======
 
 [Link](http://www.kiraradinsky.com/files/Temporal_Dynamic_Graph_Embedding__CIKM.pdf?fbclid=IwAR30gmFRxA8jqjOppnL1kGhUpwXKMQ1aJ1hUBR4lGprSTeroEHl7eTtAT0w
 ) to the paper describing our method (published in CIKM'20).
